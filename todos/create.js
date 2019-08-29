@@ -2,14 +2,11 @@
 
 const uuid = require("uuid");
 const AWS = require("aws-sdk"); // eslint-disable-line import/no-extraneous-dependencies
-const helloFunc = require("../helloFunc");
 const base64 = require("../utilities/base-64");
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
 module.exports.create = (event, context, callback) => {
-  helloFunc.helloFunc();
-
   console.log(
     base64.decode(
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
@@ -33,6 +30,7 @@ module.exports.create = (event, context, callback) => {
     Item: {
       id: uuid.v1(),
       text: data.text,
+      projects: { name: S },
       checked: false,
       createdAt: timestamp,
       updatedAt: timestamp
